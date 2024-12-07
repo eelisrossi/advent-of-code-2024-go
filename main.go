@@ -47,11 +47,11 @@ func main() {
 
     godotenv.Load(".env")
 
-    day := 1
+    day := 2
     input := getInput(day)
 
-    p1 := day01_1(input)
-    p2 := day01_2(input)
+    p1 := day02_1(input)
+    p2 := day02_2(input)
 
     fmt.Printf("Result for day %d part 1 is: %d\n", day, p1)
     fmt.Printf("Result for day %d part 2 is: %d\n", day, p2)
