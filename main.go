@@ -10,11 +10,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
 
 func getInput(day int) string {
     inputDir := "inputs"
@@ -55,7 +50,10 @@ func main() {
     day := 1
     input := getInput(day)
 
-    day01_1(input)
+    p1 := day01_1(input)
+    p2 := day01_2(input)
 
+    fmt.Printf("Result for day %d part 1 is: %d\n", day, p1)
+    fmt.Printf("Result for day %d part 2 is: %d\n", day, p2)
 }
 

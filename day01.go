@@ -1,20 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"sort"
 	"strconv"
 	"strings"
 )
 
-func abs(x int) int {
-    mask := x >> 31
-    ax := x ^ mask
-    ax = ax - mask
-    return ax
-}
-
-func day01_1(input string) {
+func getSortedLists(input string) ([]int, []int) {
 	lines := strings.Split(strings.TrimSpace(input), "\n")
 
 	var left []int
@@ -34,12 +26,42 @@ func day01_1(input string) {
 	sort.Ints(left)
 	sort.Ints(right)
 
-    total := 0
+	return left, right
+}
+
+func day01_1(input string) int {
+	left, right := getSortedLists(input)
+
+	total := 0
 
 	for i := 0; i < len(left); i++ {
-        d := abs(left[i] - right[i])
-        total += d
+		d := abs(left[i] - right[i])
+		total += d
 	}
 
-    fmt.Printf("Result for day 1 part 1 is: %d\n", total)
+	return total
+}
+
+func day01_2(input string) int {
+	left, right := getSortedLists(input)
+
+    similarityScore := 0
+
+	for i := 0; i < len(left); i++ {
+		cur := left[i]
+
+		similarCount := 0
+
+		for j := 0; j < len(right); j++ {
+			if right[j] == cur {
+				similarCount++
+			}
+		}
+
+        similarity := cur * similarCount
+
+        similarityScore += similarity
+	}
+
+	return similarityScore
 }
