@@ -50,8 +50,8 @@ func main() {
     day := 3
     input := getInput(day)
 
-    p1 := day03_1(input)
-    p2 := day03_2(input)
+    p1 := day04_1(input)
+    p2 := day04_2(input)
 
     fmt.Printf("Result for day %d part 1 is: %d\n", day, p1)
     fmt.Printf("Result for day %d part 2 is: %d\n", day, p2)
