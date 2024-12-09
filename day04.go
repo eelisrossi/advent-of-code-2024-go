@@ -1,11 +1,11 @@
 package main
 
 import (
-	"os"
 	"strings"
 )
 
 // not completely my own answer, had to look at some other solutions on yt first
+// correct answer 2344
 func searchXmas(grid []string, dir [2]int, row int, col int) bool {
 	xmas := []byte{88, 77, 65, 83}
 	rowOffset := dir[0]
@@ -60,24 +60,16 @@ func day04_1(input string) int {
 	return output
 }
 
-// this is really fucking horrible but again it just works so we go with it
+// now its a little bit less horrible
 func findCross(grid []string, row int, col int, directions [][2]int) bool {
-    first := true
-
-    firstM := false
-    firstS := false
-    secondM := false
-    secondS := false
+	first := 0
+	second := 0
 
 	for _, dir := range directions {
 		rowOffset := dir[0]
 		colOffset := dir[1]
 
-        if rowOffset + colOffset == 0 {
-            first = false
-        } else {
-            first = true
-        }
+		diff := rowOffset + colOffset
 
 		newRow := row + 1*rowOffset
 		newCol := col + 1*colOffset
@@ -86,48 +78,37 @@ func findCross(grid []string, row int, col int, directions [][2]int) bool {
 			return false
 		}
 
-        if first && !firstM {
-            if grid[newRow][newCol] == 77 {
-                firstM = true
-            }
-        }
-        if first && !firstS {
-            if grid[newRow][newCol] == 83 {
-                firstS = true
-            }
-        }
-
-        if !first && !secondM {
-            if grid[newRow][newCol] == 77 {
-                secondM = true
-            }
-        }
-        if !first && !secondS {
-            if grid[newRow][newCol] == 83 {
-                secondS  = true
-            }
-        }
+		if diff == 0 {
+			if grid[newRow][newCol] == 77 && second-77 != 0 {
+				second += 77
+			}
+			if grid[newRow][newCol] == 83 && second-83 != 0 {
+				second += 83
+			}
+		} else {
+			if grid[newRow][newCol] == 77 && first-77 != 0 {
+				first += 77
+			}
+			if grid[newRow][newCol] == 83 && first-83 != 0 {
+				first += 83
+			}
+		}
 
 	}
-    if firstM && secondM && firstS && secondS {
-        return true
-    } else {
-        return false
-    }
+	if first == 160 && second == 160 {
+		return true
+	} else {
+		return false
+	}
 
-}
-
-func getTestInput() string {
-    content, _ := os.ReadFile("./inputs/day4-testinput.txt")
-    return string(content)
 }
 
 // {-1, -1} {-1, 0} {-1, 1}
 // {0, -1}          {0, 1}
 // {1, -1}  {1, 0}  {1, 1}
+// correct answer: 1815
 func day04_2(input string) int {
 	grid := strings.Split(strings.TrimSpace(input), "\n")
-    // grid := strings.Split(strings.TrimSpace(getTestInput()), "\n")
 	output := 0
 
 	directions := [][2]int{
