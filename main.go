@@ -43,15 +43,22 @@ func getInput(day int) string {
     return string(body)
 }
 
+func getTestInput(day int) string {
+    inputFile := fmt.Sprintf("./inputs/day%d-testinput.txt", day)
+    content, _ := os.ReadFile(inputFile)
+    return string(content)
+}
+
 func main() {
 
     godotenv.Load(".env")
 
-    day := 4
+    day := 5
     input := getInput(day)
+    // input := getTestInput(day)
 
-    p1 := day04_1(input)
-    p2 := day04_2(input)
+    p1 := day05_1(input)
+    p2 := day05_2(input)
 
     fmt.Printf("Result for day %d part 1 is: %d\n", day, p1)
     fmt.Printf("Result for day %d part 2 is: %d\n", day, p2)
